@@ -8,21 +8,13 @@
     });
   }
 
-$(function(){
-  $('#ghsubmitbtn').on('click', function(e){
-    e.preventDefault();
-    $('#ghapidata').html('<div id="loader"><img src="css/loader.gif" alt="loading..."></div>');
-    
-    var username = $('#ghusername').val();
+function loadComment() {
+    var username = 'whispyy';
     var requri   = 'https://api.github.com/users/'+username;
-    var repouri  = 'https://api.github.com/users/'+username+'/repos';
+    //var repouri  = 'https://api.github.com/users/'+username+'/repos';
+    var issuesuri = 'https://api.github.com/repos/'+username+'/API-git/issues';
     
     requestJSON(requri, function(json) {
-      if(json.message == "Not Found" || username == '') {
-        $('#ghapidata').html("<h2>No User Info Found</h2>");
-      }
-      
-      else {
         // else we have a user and we display their info
         var fullname   = json.name;
         var username   = json.login;
@@ -42,24 +34,44 @@ $(function(){
         outhtml = outhtml + '<div class="repolist clearfix">';
 
 
-        var repositories;
-        $.getJSON(repouri, function(json){
-          repositories = json;   
+        var issues;
+        $.getJSON(issuesuri, function(json){
+          issues = json;   
           outputPageContent();                
         });          
         
         function outputPageContent() {
-          if(repositories.length == 0) { outhtml = outhtml + '<p>No repos!</p></div>'; }
+          if(issues.length == 0) { outhtml = outhtml + '<p>No Comments!</p></div>'; }
           else {
-            outhtml = outhtml + '<p><strong>Repos List:</strong></p> <ul>';
-            $.each(repositories, function(index) {
-              outhtml = outhtml + '<li><a href="'+repositories[index].html_url+'" target="_blank">'+repositories[index].name + '</a></li>';
+            outhtml = outhtml + '<p><strong>Comments:</strong></p> <ul>';
+            $.each(issues, function(index) {
+              outhtml = outhtml + '<li>title: '+issues[index].title+
+              					  '<br /> url: '+issues[index].html_url + '</li>';
             });
             outhtml = outhtml + '</ul></div>'; 
           }
-          $('#ghapidata').html(outhtml);
+          $('#comments').html(outhtml);
         } // end outputPageContent()
-      } // end else statement
     }); // end requestJSON Ajax call
-  }); // end click event handler
-});
+}
+
+/*
+function retrieveIssues(){
+	var repoUrl = 'https://api.github.com/repos/whispyy/API-git';
+	var issuesUrl = 'https://api.github.com/repos/whispyy/API-git/issues';
+
+	requestJSON(issuesUrl, function(json) {
+
+		printIssues(json);
+	});
+}
+
+function printIssues(issuesJson){
+	var select = document.getElementById('comments');
+	var div = document.createElement('div');
+	div.setAttribute('id','tab');//a redefinir
+	div.innerHTML = issuesJson;
+	select.appendChild('div');
+
+}
+*/
