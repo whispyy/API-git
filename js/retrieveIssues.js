@@ -10,9 +10,10 @@
 
 function loadComment() {
     var username = 'whispyy';
+    var reponame = 'API-git'
     var requri   = 'https://api.github.com/users/'+username;
     //var repouri  = 'https://api.github.com/users/'+username+'/repos';
-    var issuesuri = 'https://api.github.com/repos/'+username+'/API-git/issues';
+    var issuesuri = 'https://api.github.com/repos/'+username+'/'+reponame+'/issues';
     
     requestJSON(requri, function(json) {
         // else we have a user and we display their info
@@ -45,8 +46,10 @@ function loadComment() {
           else {
             outhtml = outhtml + '<p><strong>Comments:</strong></p> <ul>';
             $.each(issues, function(index) {
-              outhtml = outhtml + '<li>title: '+issues[index].title+
-              					  '<br /> url: '+issues[index].html_url + '</li>';
+              outhtml = outhtml + '<li>user: '+issues[index].user.login+
+                          '<br />title: '+issues[index].title+
+              					  '<br /> comment: '+issues[index].body +
+                          '<br /> url: '+issues[index].html_url+ '</li>';
             });
             outhtml = outhtml + '</ul></div>'; 
           }
@@ -54,24 +57,3 @@ function loadComment() {
         } // end outputPageContent()
     }); // end requestJSON Ajax call
 }
-
-/*
-function retrieveIssues(){
-	var repoUrl = 'https://api.github.com/repos/whispyy/API-git';
-	var issuesUrl = 'https://api.github.com/repos/whispyy/API-git/issues';
-
-	requestJSON(issuesUrl, function(json) {
-
-		printIssues(json);
-	});
-}
-
-function printIssues(issuesJson){
-	var select = document.getElementById('comments');
-	var div = document.createElement('div');
-	div.setAttribute('id','tab');//a redefinir
-	div.innerHTML = issuesJson;
-	select.appendChild('div');
-
-}
-*/
