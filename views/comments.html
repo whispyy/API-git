@@ -12,6 +12,7 @@
   <!-- endjs - lib -->
 </head>
 <body onload="loadComment()">
+	<!-- retrieveIssues -->
 	<h1>Comment using issues :</h1>
 	<div id="comments" class="list-group">
 
@@ -19,8 +20,19 @@
 	<div id="addComment">
 		<a href="https://github.com/whispyy/API-git/issues" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" target="_blank">Add Issue</a>
 	</div>
+
+	<hr>
+	<!-- postIssues -->
+	<div>
+		<input class="" type="text">
+
+		<button class="btn btn-primary btn-float" id="sendIssue">
+			Send Issue
+		</button>
+	</div>
 	<div>
 		<script src="../js/retrieveIssues.js"></script>
+		<script src="../js/pushIssues.js"></script>
 	</div>
 </body>
 </html>

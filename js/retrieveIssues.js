@@ -48,7 +48,7 @@ function loadComment() {
             $.each(issues, function(index) {
               outhtml = outhtml + '<a href="'+issues[index].html_url+'" target="_blank" class="list-group-item"><h4 class="list-group-item-heading">'+issues[index].user.login+
                           ' : '+issues[index].title+'</h4>'+
-              					  '<p class="list-group-item-text">'+issues[index].body+'</p></a>';
+                          '<p class="list-group-item-text">'+issues[index].body+'</p></a>';
             });
             outhtml = outhtml + '</div>'; 
           }
