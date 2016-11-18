@@ -44,14 +44,13 @@ function loadComment() {
         function outputPageContent() {
           if(issues.length == 0) { outhtml = outhtml + '<p>No Comments!</p></div>'; }
           else {
-            outhtml = outhtml + '<p><strong>Comments:</strong></p> <ul>';
+            outhtml = outhtml + '<p><strong>Comments:</strong></p>';
             $.each(issues, function(index) {
-              outhtml = outhtml + '<li>user: '+issues[index].user.login+
-                          '<br />title: '+issues[index].title+
-              					  '<br /> comment: '+issues[index].body +
-                          '<br /> url: '+issues[index].html_url+ '</li>';
+              outhtml = outhtml + '<a href="'+issues[index].html_url+'" target="_blank" class="list-group-item"><h4 class="list-group-item-heading">'+issues[index].user.login+
+                          ' : '+issues[index].title+'</h4>'+
+              					  '<p class="list-group-item-text">'+issues[index].body+'</p></a>';
             });
-            outhtml = outhtml + '</ul></div>'; 
+            outhtml = outhtml + '</div>'; 
           }
           $('#comments').html(outhtml);
         } // end outputPageContent()
