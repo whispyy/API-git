@@ -1,35 +1,40 @@
-function postJSON(url, data) {
+function postJSON(url, data, user, pass) {
   $.ajax({
     type: "POST",
+    headers: {
+    "Authorization": "Basic " + btoa(user + ":" + pass)
+    },
     url: url,
     data: data,
     contentType: "application/json",
-    dataType: "json",
-    success: function(data){alert(data);}
+    dataType: "json"
   })
   .done(function( data ) {
     console.log( data );
   });
 }
 
-function postIssue(){
+function postIssue(user, pass, title, body){
 	var uploadURL ="https://api.github.com/repos/whispyy/API-git/issues";
 	console.log(uploadURL);
 	var data = 
 	JSON.stringify(
 	  {
-      	title: "Testing post an issue", 
-      	body: "Test to post an issue using ajax",
-      	assignees: [{}]
+      	title: title, 
+      	body: body
       }
     );
 
-    postJSON(uploadURL, data);
+    postJSON(uploadURL, data, user, pass);
 }
 
 $(function(){
-  $('#send').on('click', function(e){
+  $('#sendIssue').on('click', function(e){
     e.preventDefault();
-    postIssue();
+    var user = $("input#username").val();
+    var pass = $("input#password").val();
+    var title = $("input#title").val();
+    var body = $("input#body").val();
+    postIssue(user, pass, title, body);
   })
 });
